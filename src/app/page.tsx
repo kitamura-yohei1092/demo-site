@@ -1,9 +1,12 @@
 import { Header } from "@/components/header";
 import { Hero } from "@/components/hero";
-import { Features } from "@/components/features";
+import { Stats } from "@/components/stats";
+import { Services } from "@/components/services";
+import { Process } from "@/components/process";
+import { Portfolio } from "@/components/portfolio";
 import { Testimonials } from "@/components/testimonials";
-import { Pricing } from "@/components/pricing";
 import { FAQ } from "@/components/faq";
+import { CTASection } from "@/components/cta-section";
 import { Footer } from "@/components/footer";
 
 export default function Home() {
@@ -12,10 +15,13 @@ export default function Home() {
       <Header />
       <main>
         <Hero />
-        <Features />
+        <Stats />
+        <Services />
+        <Process />
+        <Portfolio />
         <Testimonials />
-        <Pricing />
         <FAQ />
+        <CTASection />
       </main>
       <Footer />
     </>
