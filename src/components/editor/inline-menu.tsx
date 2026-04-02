@@ -2,6 +2,7 @@
 
 import type { Editor } from "@tiptap/react";
 import { type MouseEvent, useCallback } from "react";
+import { isValidHttpUrl } from "@/lib/url";
 
 function InlineButton({
   label,
@@ -88,7 +89,7 @@ export function InlineMenu({ editor }: Readonly<{ editor: Editor }>) {
             return;
           }
           const url = window.prompt("URL:");
-          if (url) {
+          if (url && isValidHttpUrl(url)) {
             editor.chain().focus().extendMarkRange("link").setLink({ href: url }).run();
           }
         }}

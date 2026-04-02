@@ -2,6 +2,7 @@
 
 import type { Editor } from "@tiptap/react";
 import { type MouseEvent, useCallback } from "react";
+import { isValidHttpUrl } from "@/lib/url";
 
 function ToolbarButton({
   icon,
@@ -183,7 +184,7 @@ export function Toolbar({ editor }: Readonly<{ editor: Editor }>) {
         isActive={false}
         onClick={() => {
           const url = window.prompt("Image URL:");
-          if (url) {
+          if (url && isValidHttpUrl(url)) {
             editor.chain().focus().setImage({ src: url }).run();
           }
         }}
@@ -203,7 +204,7 @@ export function Toolbar({ editor }: Readonly<{ editor: Editor }>) {
             return;
           }
           const url = window.prompt("URL:");
-          if (url) {
+          if (url && isValidHttpUrl(url)) {
             editor.chain().focus().extendMarkRange("link").setLink({ href: url }).run();
           }
         }}

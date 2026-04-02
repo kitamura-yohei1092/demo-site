@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
-import DOMPurify from "isomorphic-dompurify";
+import { sanitizeHtml } from "@/lib/sanitize";
 
 export function PostPreview({
   title,
@@ -14,9 +14,7 @@ export function PostPreview({
   content: string;
   onClose: () => void;
 }>) {
-  const clean = DOMPurify.sanitize(content, {
-    ADD_ATTR: ["target", "rel"],
-  });
+  const clean = sanitizeHtml(content);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {

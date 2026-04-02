@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState, useState, useCallback } from "react";
+import { useActionState, useState, useCallback, useRef } from "react";
 import type { Blog } from "@/lib/types";
 import { TiptapEditor } from "@/components/editor/tiptap-editor";
 import { PostPreview } from "./post-preview";
@@ -43,6 +43,7 @@ export function PostForm({
   action: (prevState: { error?: string } | undefined, formData: FormData) => Promise<{ error?: string } | undefined>;
 }>) {
   const [state, formAction, isPending] = useActionState(action, undefined);
+  const formRef = useRef<HTMLFormElement>(null);
   const [showPreview, setShowPreview] = useState(false);
   const [contentHtml, setContentHtml] = useState(post?.content ?? "");
 
@@ -50,8 +51,10 @@ export function PostForm({
     setContentHtml(html);
   }, []);
 
+  const handleClosePreview = useCallback(() => setShowPreview(false), []);
+
   const getFormValue = (name: string): string => {
-    const form = document.querySelector("form");
+    const form = formRef.current;
     if (!form) return "";
     const el = form.elements.namedItem(name) as HTMLInputElement | HTMLTextAreaElement | null;
     return el?.value ?? "";
@@ -60,6 +63,7 @@ export function PostForm({
   return (
     <>
       <form
+      ref={formRef}
       action={(formData) => {
         formData.set("content", contentHtml);
         return formAction(formData);
@@ -226,7 +230,7 @@ export function PostForm({
           title={getFormValue("title")}
           excerpt={getFormValue("excerpt")}
           content={contentHtml}
-          onClose={() => setShowPreview(false)}
+          onClose={handleClosePreview}
         />
       )}
     </>

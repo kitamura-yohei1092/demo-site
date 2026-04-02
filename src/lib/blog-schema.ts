@@ -7,7 +7,7 @@ export const blogSchema = z.object({
     .min(1, "Slug is required")
     .max(200, "Slug must be 200 characters or less")
     .regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/, "Slug must be lowercase alphanumeric with hyphens"),
-  content: z.string().min(1, "Content is required"),
+  content: z.string().min(1, "Content is required").max(500000, "Content is too large"),
   excerpt: z.string().max(500, "Excerpt must be 500 characters or less").optional().default(""),
   published: z.boolean().default(false),
   meta_title: z.string().max(120, "Meta title must be 120 characters or less").optional().default(""),
