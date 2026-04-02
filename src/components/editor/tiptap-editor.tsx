@@ -6,6 +6,7 @@ import StarterKit from "@tiptap/starter-kit";
 import LinkExtension from "@tiptap/extension-link";
 import Placeholder from "@tiptap/extension-placeholder";
 import Underline from "@tiptap/extension-underline";
+import Image from "@tiptap/extension-image";
 import { Toolbar } from "./toolbar";
 import { InlineMenu } from "./inline-menu";
 
@@ -31,6 +32,11 @@ export function TiptapEditor({
         placeholder: "Write your post content here...",
       }),
       Underline,
+      Image.configure({
+        HTMLAttributes: {
+          class: "rounded-lg border border-border my-4 max-w-full",
+        },
+      }),
     ],
     content,
     onUpdate: ({ editor: e }) => {
