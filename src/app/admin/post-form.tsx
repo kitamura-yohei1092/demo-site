@@ -119,12 +119,15 @@ export function PostForm({
               />
             </Field>
 
-            <Field label="Content">
-              <TiptapEditor
-                content={post?.content ?? ""}
-                onHtmlChange={handleHtmlChange}
-              />
-            </Field>
+            <div>
+              <span className="text-sm font-medium text-foreground">Content</span>
+              <div className="mt-1.5" suppressHydrationWarning>
+                <TiptapEditor
+                  content={post?.content ?? ""}
+                  onHtmlChange={handleHtmlChange}
+                />
+              </div>
+            </div>
 
             <label className="flex items-center gap-3">
               <input
