@@ -1,11 +1,13 @@
 "use client";
 
 import { useEditor, EditorContent } from "@tiptap/react";
+import { BubbleMenu } from "@tiptap/react/menus";
 import StarterKit from "@tiptap/starter-kit";
-import Link from "@tiptap/extension-link";
+import LinkExtension from "@tiptap/extension-link";
 import Placeholder from "@tiptap/extension-placeholder";
 import Underline from "@tiptap/extension-underline";
 import { Toolbar } from "./toolbar";
+import { InlineMenu } from "./inline-menu";
 
 export function TiptapEditor({
   content,
@@ -16,11 +18,12 @@ export function TiptapEditor({
 }>) {
   const editor = useEditor({
     immediatelyRender: false,
+    shouldRerenderOnTransaction: true,
     extensions: [
       StarterKit.configure({
         heading: { levels: [2, 3] },
       }),
-      Link.configure({
+      LinkExtension.configure({
         openOnClick: false,
         HTMLAttributes: { rel: "noopener noreferrer", target: "_blank" },
       }),
@@ -35,7 +38,8 @@ export function TiptapEditor({
     },
     editorProps: {
       attributes: {
-        class: "tiptap-content min-h-[400px] px-5 py-4 text-sm leading-relaxed text-foreground outline-none",
+        class:
+          "tiptap-content min-h-[400px] px-5 py-4 text-sm leading-relaxed text-foreground outline-none",
       },
     },
   });
@@ -51,6 +55,9 @@ export function TiptapEditor({
   return (
     <div className="overflow-hidden rounded-lg border border-border bg-surface transition-colors focus-within:border-primary/50 focus-within:ring-1 focus-within:ring-primary/30">
       <Toolbar editor={editor} />
+      <BubbleMenu editor={editor}>
+        <InlineMenu editor={editor} />
+      </BubbleMenu>
       <EditorContent editor={editor} />
     </div>
   );
