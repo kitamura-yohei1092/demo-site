@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState, useRef, useCallback } from "react";
+import { useActionState } from "react";
 import type { Blog } from "@/lib/types";
 import { TiptapEditor } from "@/components/editor/tiptap-editor";
 
@@ -42,20 +42,9 @@ export function PostForm({
   action: (prevState: { error?: string } | undefined, formData: FormData) => Promise<{ error?: string } | undefined>;
 }>) {
   const [state, formAction, isPending] = useActionState(action, undefined);
-  const contentRef = useRef(post?.content ?? "");
-
-  const handleContentChange = useCallback((html: string) => {
-    contentRef.current = html;
-  }, []);
 
   return (
-    <form
-      action={(formData) => {
-        formData.set("content", contentRef.current);
-        return formAction(formData);
-      }}
-      className="space-y-8"
-    >
+    <form action={formAction} className="space-y-8">
       {state?.error && (
         <div className="rounded-lg border border-red-500/30 bg-red-500/10 px-4 py-3 text-sm text-red-400">
           {state.error}
@@ -112,7 +101,7 @@ export function PostForm({
           <Field label="Content">
             <TiptapEditor
               content={post?.content ?? ""}
-              onChange={handleContentChange}
+              name="content"
             />
           </Field>
 

@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { useEditor, EditorContent } from "@tiptap/react";
 import { BubbleMenu } from "@tiptap/react/menus";
 import StarterKit from "@tiptap/starter-kit";
@@ -12,11 +13,12 @@ import { InlineMenu } from "./inline-menu";
 
 export function TiptapEditor({
   content,
-  onChange,
+  name,
 }: Readonly<{
   content: string;
-  onChange: (html: string) => void;
+  name: string;
 }>) {
+  const [html, setHtml] = useState(content);
   const editor = useEditor({
     immediatelyRender: false,
     shouldRerenderOnTransaction: true,
@@ -40,7 +42,7 @@ export function TiptapEditor({
     ],
     content,
     onUpdate: ({ editor: e }) => {
-      onChange(e.getHTML());
+      setHtml(e.getHTML());
     },
     editorProps: {
       attributes: {
@@ -60,6 +62,7 @@ export function TiptapEditor({
 
   return (
     <div className="overflow-hidden rounded-lg border border-border bg-surface transition-colors focus-within:border-primary/50 focus-within:ring-1 focus-within:ring-primary/30">
+      <input type="hidden" name={name} value={html} />
       <Toolbar editor={editor} />
       <BubbleMenu editor={editor}>
         <InlineMenu editor={editor} />
