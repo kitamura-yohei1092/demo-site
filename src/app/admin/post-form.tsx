@@ -1,7 +1,8 @@
 "use client";
 
-import { useActionState } from "react";
+import { useActionState, useRef, useCallback } from "react";
 import type { Blog } from "@/lib/types";
+import { TiptapEditor } from "@/components/editor/tiptap-editor";
 
 function slugify(text: string): string {
   return text
@@ -41,9 +42,20 @@ export function PostForm({
   action: (prevState: { error?: string } | undefined, formData: FormData) => Promise<{ error?: string } | undefined>;
 }>) {
   const [state, formAction, isPending] = useActionState(action, undefined);
+  const contentRef = useRef(post?.content ?? "");
+
+  const handleContentChange = useCallback((html: string) => {
+    contentRef.current = html;
+  }, []);
 
   return (
-    <form action={formAction} className="space-y-8">
+    <form
+      action={(formData) => {
+        formData.set("content", contentRef.current);
+        return formAction(formData);
+      }}
+      className="space-y-8"
+    >
       {state?.error && (
         <div className="rounded-lg border border-red-500/30 bg-red-500/10 px-4 py-3 text-sm text-red-400">
           {state.error}
@@ -97,14 +109,10 @@ export function PostForm({
             />
           </Field>
 
-          <Field label="Content" hint="Markdown supported">
-            <textarea
-              name="content"
-              defaultValue={post?.content ?? ""}
-              required
-              rows={16}
-              placeholder="Write your post content in Markdown..."
-              className={`${inputClass} font-mono text-xs leading-relaxed`}
+          <Field label="Content">
+            <TiptapEditor
+              content={post?.content ?? ""}
+              onChange={handleContentChange}
             />
           </Field>
 
