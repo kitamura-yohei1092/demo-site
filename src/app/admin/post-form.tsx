@@ -59,7 +59,13 @@ export function PostForm({
 
   return (
     <>
-      <form action={formAction} className="space-y-8">
+      <form
+      action={(formData) => {
+        formData.set("content", contentHtml);
+        return formAction(formData);
+      }}
+      className="space-y-8"
+    >
         {state?.error && (
           <div className="rounded-lg border border-red-500/30 bg-red-500/10 px-4 py-3 text-sm text-red-400">
             {state.error}
@@ -114,7 +120,6 @@ export function PostForm({
             </Field>
 
             <Field label="Content">
-              <input type="hidden" name="content" value={contentHtml} />
               <TiptapEditor
                 content={post?.content ?? ""}
                 onHtmlChange={handleHtmlChange}
