@@ -20,6 +20,7 @@ function ToolbarButton({
   return (
     <button
       type="button"
+      onMouseDown={(e) => e.preventDefault()}
       onClick={onClick}
       title={label}
       className={`flex h-8 w-8 cursor-pointer items-center justify-center rounded-md text-sm transition-colors ${
