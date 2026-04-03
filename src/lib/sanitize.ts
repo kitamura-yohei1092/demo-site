@@ -1,9 +1,23 @@
-import DOMPurify from "isomorphic-dompurify";
+import sanitize from "sanitize-html";
 
-const PURIFY_CONFIG = {
-  ADD_ATTR: ["target", "rel"],
+const SANITIZE_CONFIG: sanitize.IOptions = {
+  allowedTags: sanitize.defaults.allowedTags.concat([
+    "img",
+    "h1",
+    "h2",
+    "h3",
+    "u",
+    "s",
+    "sub",
+    "sup",
+  ]),
+  allowedAttributes: {
+    ...sanitize.defaults.allowedAttributes,
+    a: ["href", "target", "rel"],
+    img: ["src", "alt", "width", "height"],
+  },
 };
 
 export function sanitizeHtml(dirty: string): string {
-  return DOMPurify.sanitize(dirty, PURIFY_CONFIG);
+  return sanitize(dirty, SANITIZE_CONFIG);
 }
