@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 const footerLinks = [
   {
     title: "Services",
@@ -33,9 +35,9 @@ export function Footer() {
         <div className="grid gap-12 sm:grid-cols-2 lg:grid-cols-4">
           {/* Brand */}
           <div>
-            <a href="/" className="font-heading text-xl font-bold tracking-tight">
+            <Link href="/" className="font-heading text-xl font-bold tracking-tight">
               YM<span className="text-primary-light">Tech</span>
-            </a>
+            </Link>
             <p className="mt-4 text-sm leading-relaxed text-muted">
               We make beautiful websites that rank on Google. Based in Cebu,
               serving clients worldwide.
@@ -51,13 +53,23 @@ export function Footer() {
               <ul className="mt-4 space-y-3">
                 {group.links.map((link) => (
                   <li key={link.label}>
-                    <a
-                      href={link.href}
-                      className="cursor-pointer text-sm text-muted transition-colors duration-200 hover:text-foreground"
-                      {...(link.href.startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-                    >
-                      {link.label}
-                    </a>
+                    {link.href.startsWith("http") || link.href.startsWith("mailto:") ? (
+                      <a
+                        href={link.href}
+                        className="cursor-pointer text-sm text-muted transition-colors duration-200 hover:text-foreground"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        {link.label}
+                      </a>
+                    ) : (
+                      <Link
+                        href={link.href}
+                        className="cursor-pointer text-sm text-muted transition-colors duration-200 hover:text-foreground"
+                      >
+                        {link.label}
+                      </Link>
+                    )}
                   </li>
                 ))}
               </ul>

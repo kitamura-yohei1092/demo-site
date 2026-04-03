@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { supabase } from "@/lib/supabase";
 import type { Blog } from "@/lib/types";
 import { Header } from "@/components/header";
@@ -91,7 +92,7 @@ export default async function BlogPage() {
         ) : (
           <div className="mt-16 grid gap-6 sm:grid-cols-2">
             {posts.map((post) => (
-              <a
+              <Link
                 key={post.id}
                 href={`/blog/${post.slug}`}
                 className="group relative overflow-hidden rounded-2xl border border-border/60 bg-surface/50 p-6 transition-all duration-300 hover:border-primary/30 hover:bg-surface/80 hover:shadow-lg hover:shadow-primary/5"
@@ -130,7 +131,7 @@ export default async function BlogPage() {
                     </svg>
                   </span>
                 </div>
-              </a>
+              </Link>
             ))}
           </div>
         )}

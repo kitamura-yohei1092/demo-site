@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export function Hero() {
   return (
     <section className="relative overflow-hidden px-6 py-28 sm:py-36">
@@ -30,13 +32,13 @@ export function Hero() {
         </p>
 
         <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
-          <a
+          <Link
             href="/#contact"
             className="cursor-pointer rounded-lg bg-gradient-to-r from-accent to-accent-light px-8 py-3.5 text-sm font-bold text-white shadow-lg shadow-accent/25 transition-all duration-200 hover:shadow-xl hover:shadow-accent/40"
           >
             Get a Free Quote
-          </a>
-          <a
+          </Link>
+          <Link
             href="/#portfolio"
             className="group cursor-pointer flex items-center gap-2 rounded-lg border border-border px-8 py-3.5 text-sm font-semibold text-foreground transition-all duration-200 hover:border-primary/50 hover:bg-surface"
           >
@@ -44,7 +46,7 @@ export function Hero() {
             <svg className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
             </svg>
-          </a>
+          </Link>
         </div>
 
         {/* Trust signals */}
