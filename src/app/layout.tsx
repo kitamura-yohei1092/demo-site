@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Poppins, DM_Sans } from "next/font/google";
+import { SITE_URL, SITE_NAME, SITE_DESCRIPTION } from "@/lib/site-config";
 import "./globals.css";
 
 const poppins = Poppins({
@@ -17,9 +18,39 @@ const dmSans = DM_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "YM Tech Services — Beautiful Websites That Rank on Google",
-  description:
-    "We design and build stunning, SEO-optimized websites that drive traffic, generate leads, and grow your business. Based in Cebu, serving clients worldwide.",
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: `${SITE_NAME} — Beautiful Websites That Rank on Google`,
+    template: `%s | ${SITE_NAME}`,
+  },
+  description: SITE_DESCRIPTION,
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: SITE_URL,
+    siteName: SITE_NAME,
+    title: `${SITE_NAME} — Beautiful Websites That Rank on Google`,
+    description: SITE_DESCRIPTION,
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `${SITE_NAME} — Beautiful Websites That Rank on Google`,
+    description: SITE_DESCRIPTION,
+  },
+  alternates: {
+    canonical: "/",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
 };
 
 export default function RootLayout({

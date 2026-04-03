@@ -3,18 +3,61 @@ import { supabase } from "@/lib/supabase";
 import type { Blog } from "@/lib/types";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
+import { SITE_URL, SITE_NAME } from "@/lib/site-config";
+import { safeJsonLd } from "@/lib/json-ld";
 
 export const metadata: Metadata = {
-  title: "Blog | YM Tech Services",
+  title: "Blog",
   description:
     "Insights on web design, SEO optimization, and growing your online presence. Tips and strategies from the YM Tech team.",
   openGraph: {
-    title: "Blog | YM Tech Services",
+    title: `Blog | ${SITE_NAME}`,
     description:
       "Insights on web design, SEO optimization, and growing your online presence.",
     type: "website",
+    url: `${SITE_URL}/blog`,
+  },
+  alternates: {
+    canonical: "/blog",
   },
 };
+
+function BlogListJsonLd(
+  posts: Pick<Blog, "id" | "title" | "slug" | "excerpt" | "created_at">[] | null,
+) {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: `Blog | ${SITE_NAME}`,
+    description:
+      "Insights on web design, SEO optimization, and growing your online presence.",
+    url: `${SITE_URL}/blog`,
+    publisher: {
+      "@type": "Organization",
+      name: SITE_NAME,
+    },
+    ...(posts && posts.length > 0
+      ? {
+          mainEntity: {
+            "@type": "ItemList",
+            itemListElement: posts.map((post, index) => ({
+              "@type": "ListItem",
+              position: index + 1,
+              url: `${SITE_URL}/blog/${post.slug}`,
+              name: post.title,
+            })),
+          },
+        }
+      : {}),
+  };
+
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: safeJsonLd(jsonLd) }}
+    />
+  );
+}
 
 export default async function BlogPage() {
   const { data: posts } = await supabase
@@ -26,6 +69,7 @@ export default async function BlogPage() {
 
   return (
     <>
+      {BlogListJsonLd(posts)}
       <Header />
       <main className="mx-auto max-w-4xl px-6 py-24">
         <div className="text-center">
