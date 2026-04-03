@@ -5,6 +5,8 @@ import type { Blog } from "@/lib/types";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import { BlogContent } from "./blog-content";
+import { SITE_URL, SITE_NAME } from "@/lib/site-config";
+import { safeJsonLd } from "@/lib/json-ld";
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -28,17 +30,18 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const description = post.meta_description || post.excerpt || "";
 
   return {
-    title: `${title} | YM Tech Blog`,
+    title,
     description,
     openGraph: {
       title,
       description,
       type: "article",
+      url: `${SITE_URL}/blog/${slug}`,
       ...(post.og_image ? { images: [{ url: post.og_image }] } : {}),
     },
-    ...(post.canonical_url
-      ? { alternates: { canonical: post.canonical_url } }
-      : {}),
+    alternates: {
+      canonical: post.canonical_url || `/blog/${slug}`,
+    },
   };
 }
 
@@ -52,11 +55,11 @@ function BlogPostingJsonLd(post: Blog) {
     dateModified: post.updated_at,
     author: {
       "@type": "Organization",
-      name: "YM Tech Services",
+      name: SITE_NAME,
     },
     publisher: {
       "@type": "Organization",
-      name: "YM Tech Services",
+      name: SITE_NAME,
     },
     ...(post.og_image
       ? {
@@ -71,7 +74,7 @@ function BlogPostingJsonLd(post: Blog) {
   return (
     <script
       type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      dangerouslySetInnerHTML={{ __html: safeJsonLd(jsonLd) }}
     />
   );
 }

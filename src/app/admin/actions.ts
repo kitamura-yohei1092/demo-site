@@ -2,6 +2,7 @@
 
 import { supabaseAdmin } from "@/lib/supabase-admin";
 import { blogSchema } from "@/lib/blog-schema";
+import { sanitizeHtml } from "@/lib/sanitize";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
@@ -33,7 +34,7 @@ export async function createPost(formData: FormData) {
   const insertData = {
     title: data.title,
     slug: data.slug,
-    content: data.content,
+    content: sanitizeHtml(data.content),
     excerpt: data.excerpt || null,
     published: data.published,
     meta_title: data.meta_title || null,
@@ -82,7 +83,7 @@ export async function updatePost(id: number, formData: FormData) {
   const updateData = {
     title: data.title,
     slug: data.slug,
-    content: data.content,
+    content: sanitizeHtml(data.content),
     excerpt: data.excerpt || null,
     published: data.published,
     meta_title: data.meta_title || null,
