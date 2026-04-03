@@ -5,7 +5,7 @@ import { Services } from "@/components/services";
 import { Process } from "@/components/process";
 import { Portfolio } from "@/components/portfolio";
 import { Testimonials } from "@/components/testimonials";
-import { FAQ } from "@/components/faq";
+import { FAQ, faqs } from "@/components/faq";
 import { CTASection } from "@/components/cta-section";
 import { Footer } from "@/components/footer";
 import { SITE_URL, SITE_NAME, SITE_DESCRIPTION } from "@/lib/site-config";
@@ -42,6 +42,19 @@ function HomeJsonLd() {
     },
   };
 
+  const faqLd = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map((faq) => ({
+      "@type": "Question",
+      name: faq.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: faq.answer,
+      },
+    })),
+  };
+
   return (
     <>
       <script
@@ -51,6 +64,10 @@ function HomeJsonLd() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: safeJsonLd(websiteLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: safeJsonLd(faqLd) }}
       />
     </>
   );

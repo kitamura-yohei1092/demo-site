@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 
-const faqs = [
+export const faqs = [
   {
     question: "How long does it take to build a website?",
     answer:

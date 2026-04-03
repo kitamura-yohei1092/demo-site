@@ -5,6 +5,7 @@ import type { Blog } from "@/lib/types";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import { BlogContent } from "./blog-content";
+import Link from "next/link";
 import { SITE_URL, SITE_NAME } from "@/lib/site-config";
 import { safeJsonLd } from "@/lib/json-ld";
 
@@ -126,7 +127,7 @@ export default async function BlogPostPage({ params }: Props) {
         </article>
 
         <div className="mt-16 border-t border-border/50 pt-8 text-center">
-          <a
+          <Link
             href="/blog"
             className="inline-flex items-center text-sm font-medium text-primary-light transition-colors hover:text-primary"
           >
@@ -144,7 +145,7 @@ export default async function BlogPostPage({ params }: Props) {
               />
             </svg>
             Back to all posts
-          </a>
+          </Link>
         </div>
       </main>
       <Footer />
