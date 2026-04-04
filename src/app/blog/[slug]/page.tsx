@@ -9,6 +9,7 @@ import Link from "next/link";
 import { SITE_URL, SITE_NAME } from "@/lib/site-config";
 import { safeJsonLd } from "@/lib/json-ld";
 import { Breadcrumb } from "@/components/breadcrumb";
+import { ReadingProgress } from "@/components/reading-progress";
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -98,6 +99,7 @@ export default async function BlogPostPage({ params }: Props) {
 
   return (
     <>
+      <ReadingProgress />
       <Header />
       {BlogPostingJsonLd(post)}
       <Breadcrumb

@@ -158,3 +158,127 @@ h1, h2, h3, h4, h5, h6 {
   pointer-events: none;
   height: 0;
 }
+
+/* Callout blocks */
+.tiptap-content .callout {
+  border-radius: 0.5rem;
+  padding: 1rem 1.25rem;
+  margin-bottom: 1.5rem;
+  border-left: 3px solid;
+}
+
+.tiptap-content .callout p:last-child {
+  margin-bottom: 0;
+}
+
+.tiptap-content .callout-info {
+  background: rgba(99, 102, 241, 0.08);
+  border-left-color: var(--primary);
+}
+
+.tiptap-content .callout-tip {
+  background: rgba(34, 197, 94, 0.08);
+  border-left-color: #22c55e;
+}
+
+.tiptap-content .callout-warning {
+  background: rgba(249, 115, 22, 0.08);
+  border-left-color: var(--accent);
+}
+
+/* Pull quote */
+.tiptap-content .pull-quote {
+  border: none;
+  padding: 1.5rem 0;
+  margin: 2rem 0;
+  text-align: center;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.tiptap-content .pull-quote p {
+  font-family: var(--font-heading), system-ui, sans-serif;
+  font-size: 1.375rem;
+  font-weight: 500;
+  line-height: 1.5;
+  color: var(--foreground);
+  font-style: italic;
+  margin-bottom: 0;
+}
+
+/* Stat highlight */
+.tiptap-content .stat-highlight {
+  text-align: center;
+  padding: 2rem 1.5rem;
+  margin: 2rem 0;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+}
+
+.tiptap-content .stat-highlight::before {
+  content: attr(data-stat);
+  display: block;
+  font-family: var(--font-heading), system-ui, sans-serif;
+  font-size: 2.5rem;
+  font-weight: 800;
+  line-height: 1;
+  margin-bottom: 0.5rem;
+  background: linear-gradient(135deg, var(--primary-light), var(--accent-light));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.tiptap-content .stat-highlight p {
+  color: var(--muted);
+  margin-bottom: 0;
+}
+
+/* Key takeaway */
+.tiptap-content .key-takeaway {
+  background: var(--surface);
+  border: 1px solid var(--primary);
+  border-radius: 0.75rem;
+  padding: 1.25rem 1.5rem;
+  margin: 1.5rem 0;
+  position: relative;
+}
+
+.tiptap-content .key-takeaway::before {
+  content: "Key Takeaway";
+  display: block;
+  font-family: var(--font-heading), system-ui, sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--primary-light);
+  margin-bottom: 0.5rem;
+}
+
+.tiptap-content .key-takeaway p:last-child {
+  margin-bottom: 0;
+}
+
+/* Inline CTA */
+.tiptap-content .inline-cta {
+  text-align: center;
+  padding: 1.5rem;
+  margin: 2rem 0;
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(249, 115, 22, 0.1));
+  border-radius: 0.75rem;
+  border: 1px solid var(--border);
+}
+
+.tiptap-content .inline-cta p {
+  font-weight: 600;
+  margin-bottom: 0;
+}
+
+.tiptap-content .inline-cta a,
+.tiptap-content .inline-cta p a {
+  color: var(--primary-light);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}

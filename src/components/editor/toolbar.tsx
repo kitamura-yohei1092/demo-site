@@ -3,6 +3,7 @@
 import type { Editor } from "@tiptap/react";
 import { type MouseEvent, useCallback } from "react";
 import { isValidHttpUrl } from "@/lib/url";
+import type { CalloutType } from "./extensions/callout";
 
 function ToolbarButton({
   icon,
@@ -41,6 +42,52 @@ function ToolbarButton({
 
 function Separator() {
   return <div className="mx-0.5 h-5 w-px bg-border/60" />;
+}
+
+const CALLOUT_TYPES: { type: CalloutType; label: string; icon: string }[] = [
+  { type: "info", label: "Info", icon: "i" },
+  { type: "tip", label: "Tip", icon: "T" },
+  { type: "warning", label: "Warning", icon: "!" },
+];
+
+function CalloutDropdown({ editor }: Readonly<{ editor: Editor }>) {
+  return (
+    <div className="group relative">
+      <ToolbarButton
+        label="Callout"
+        icon={
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <circle cx="12" cy="12" r="10" />
+            <line x1="12" y1="16" x2="12" y2="12" />
+            <line x1="12" y1="8" x2="12.01" y2="8" />
+          </svg>
+        }
+        isActive={editor.isActive("callout")}
+        onClick={() => editor.chain().focus().toggleCallout({ type: "info" }).run()}
+      />
+      <div className="absolute left-0 top-full z-10 hidden min-w-[100px] rounded-md border border-border bg-surface p-1 shadow-xl group-hover:block">
+        {CALLOUT_TYPES.map((ct) => (
+          <button
+            key={ct.type}
+            type="button"
+            className={`flex w-full items-center gap-2 rounded px-2 py-1 text-left text-xs transition-colors ${
+              editor.isActive("callout", { type: ct.type })
+                ? "bg-primary/20 text-primary-light"
+                : "text-muted hover:bg-surface-light hover:text-foreground"
+            }`}
+            onClick={() =>
+              editor.chain().focus().toggleCallout({ type: ct.type }).run()
+            }
+          >
+            <span className="flex h-4 w-4 items-center justify-center rounded-sm bg-surface-light text-[10px] font-bold">
+              {ct.icon}
+            </span>
+            {ct.label}
+          </button>
+        ))}
+      </div>
+    </div>
+  );
 }
 
 export function Toolbar({ editor }: Readonly<{ editor: Editor }>) {
@@ -206,6 +253,56 @@ export function Toolbar({ editor }: Readonly<{ editor: Editor }>) {
           const url = window.prompt("URL:");
           if (url && isValidHttpUrl(url)) {
             editor.chain().focus().extendMarkRange("link").setLink({ href: url }).run();
+          }
+        }}
+      />
+
+      <Separator />
+
+      {/* Custom blocks */}
+      <CalloutDropdown editor={editor} />
+      <ToolbarButton
+        label="Pull Quote"
+        icon={<span className="text-[10px]">PQ</span>}
+        isActive={editor.isActive("pullQuote")}
+        onClick={() => editor.chain().focus().togglePullQuote().run()}
+      />
+      <ToolbarButton
+        label="Key Takeaway"
+        icon={
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M12 2L2 7l10 5 10-5-10-5z" />
+            <path d="M2 17l10 5 10-5" />
+            <path d="M2 12l10 5 10-5" />
+          </svg>
+        }
+        isActive={editor.isActive("keyTakeaway")}
+        onClick={() => editor.chain().focus().toggleKeyTakeaway().run()}
+      />
+      <ToolbarButton
+        label="Stat Highlight"
+        icon={<span className="text-[10px]">#</span>}
+        isActive={editor.isActive("statHighlight")}
+        onClick={() => {
+          const value = window.prompt("Stat value (e.g. 85%):");
+          if (value) {
+            editor.chain().focus().setStatHighlight({ value }).run();
+          }
+        }}
+      />
+      <ToolbarButton
+        label="Inline CTA"
+        icon={
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <rect x="3" y="8" width="18" height="8" rx="2" />
+            <path d="M12 8v8" />
+          </svg>
+        }
+        isActive={editor.isActive("inlineCta")}
+        onClick={() => {
+          const href = window.prompt("CTA link URL:");
+          if (href && isValidHttpUrl(href)) {
+            editor.chain().focus().setInlineCta({ href }).run();
           }
         }}
       />

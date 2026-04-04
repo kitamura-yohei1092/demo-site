@@ -10,11 +10,16 @@ const SANITIZE_CONFIG: sanitize.IOptions = {
     "s",
     "sub",
     "sup",
+    "aside",
   ]),
   allowedAttributes: {
     ...sanitize.defaults.allowedAttributes,
     a: ["href", "target", "rel"],
     img: ["src", "alt", "width", "height"],
+    h2: ["id"],
+    h3: ["id"],
+    div: ["data-callout", "data-stat", "data-key-takeaway", "data-cta-href", "class"],
+    aside: ["data-pull-quote", "class"],
   },
 };
 

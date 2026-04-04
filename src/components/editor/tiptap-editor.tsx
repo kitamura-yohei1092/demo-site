@@ -9,6 +9,13 @@ import Underline from "@tiptap/extension-underline";
 import Image from "@tiptap/extension-image";
 import { Toolbar } from "./toolbar";
 import { InlineMenu } from "./inline-menu";
+import {
+  Callout,
+  PullQuote,
+  StatHighlight,
+  KeyTakeaway,
+  InlineCta,
+} from "./extensions";
 
 export function TiptapEditor({
   content,
@@ -37,6 +44,11 @@ export function TiptapEditor({
           class: "rounded-lg border border-border my-4 max-w-full",
         },
       }),
+      Callout,
+      PullQuote,
+      StatHighlight,
+      KeyTakeaway,
+      InlineCta,
     ],
     content,
     onUpdate: ({ editor: e }) => {
