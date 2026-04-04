@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 const projects = [
   {
     title: "Oceanic Resort & Spa",
@@ -69,6 +71,28 @@ export function Portfolio() {
               </div>
             </div>
           ))}
+        </div>
+
+        <div className="mt-12 text-center">
+          <Link
+            href="/portfolio"
+            className="inline-flex items-center gap-2 rounded-full border border-primary/30 px-6 py-3 text-sm font-medium text-primary-light transition-all hover:bg-primary/10 hover:border-primary/50"
+          >
+            View All Projects
+            <svg
+              className="h-4 w-4 transition-transform group-hover:translate-x-1"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M9 5l7 7-7 7"
+              />
+            </svg>
+          </Link>
         </div>
       </div>
     </section>

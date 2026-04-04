@@ -47,9 +47,9 @@ export function Footer() {
           {/* Links */}
           {footerLinks.map((group) => (
             <div key={group.title}>
-              <h4 className="font-heading text-sm font-semibold text-foreground">
+              <h3 className="font-heading text-sm font-semibold text-foreground">
                 {group.title}
-              </h4>
+              </h3>
               <ul className="mt-4 space-y-3">
                 {group.links.map((link) => (
                   <li key={link.label}>
