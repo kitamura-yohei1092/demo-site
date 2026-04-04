@@ -8,6 +8,8 @@ import { SITE_URL, SITE_NAME } from "@/lib/site-config";
 import { safeJsonLd } from "@/lib/json-ld";
 import { Breadcrumb } from "@/components/breadcrumb";
 
+export const dynamic = "force-dynamic";
+
 export const metadata: Metadata = {
   title: "Blog",
   description:

@@ -9,6 +9,8 @@ import { safeJsonLd } from "@/lib/json-ld";
 import { Breadcrumb } from "@/components/breadcrumb";
 import { PortfolioFilter } from "./portfolio-filter";
 
+export const dynamic = "force-dynamic";
+
 export const metadata: Metadata = {
   title: "Portfolio",
   description:
