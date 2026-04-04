@@ -32,12 +32,26 @@ export default function AdminLayout({
                 Posts
               </a>
               <a
+                href="/admin/projects"
+                className="text-sm font-medium text-muted transition-colors hover:text-foreground"
+              >
+                Projects
+              </a>
+              <a
                 href="/blog"
                 className="text-sm font-medium text-muted transition-colors hover:text-foreground"
                 target="_blank"
                 rel="noopener noreferrer"
               >
                 View Blog &rarr;
+              </a>
+              <a
+                href="/portfolio"
+                className="text-sm font-medium text-muted transition-colors hover:text-foreground"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                View Portfolio &rarr;
               </a>
             </nav>
           </div>

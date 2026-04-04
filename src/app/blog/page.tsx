@@ -6,6 +6,9 @@ import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import { SITE_URL, SITE_NAME } from "@/lib/site-config";
 import { safeJsonLd } from "@/lib/json-ld";
+import { Breadcrumb } from "@/components/breadcrumb";
+
+export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   title: "Blog",
@@ -72,6 +75,12 @@ export default async function BlogPage() {
     <>
       {BlogListJsonLd(posts)}
       <Header />
+      <Breadcrumb
+        items={[
+          { label: "Home", href: "/" },
+          { label: "Blog" },
+        ]}
+      />
       <main className="mx-auto max-w-4xl px-6 py-24">
         <div className="text-center">
           <span className="font-heading text-sm font-semibold uppercase tracking-[0.2em] text-primary-light">

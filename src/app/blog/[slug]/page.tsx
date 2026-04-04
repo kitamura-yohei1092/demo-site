@@ -8,6 +8,7 @@ import { BlogContent } from "./blog-content";
 import Link from "next/link";
 import { SITE_URL, SITE_NAME } from "@/lib/site-config";
 import { safeJsonLd } from "@/lib/json-ld";
+import { Breadcrumb } from "@/components/breadcrumb";
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -99,6 +100,13 @@ export default async function BlogPostPage({ params }: Props) {
     <>
       <Header />
       {BlogPostingJsonLd(post)}
+      <Breadcrumb
+        items={[
+          { label: "Home", href: "/" },
+          { label: "Blog", href: "/blog" },
+          { label: post.title },
+        ]}
+      />
       <main className="mx-auto max-w-3xl px-6 py-24">
         <article>
           <header className="mb-12 text-center">
