@@ -63,7 +63,16 @@ export default function RootLayout({
       lang="en"
       className={`${poppins.variable} ${dmSans.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        {children}
+        <script
+          async
+          src="https://sagot-web.vercel.app/chat-widget.js"
+          data-tenant="verify-inbox-0425"
+          data-key="pk_live_2LLrQ4CNBFgyCucegAYmsItGL90ewyoO"
+          data-color="#e92bc0"
+        />
+      </body>
     </html>
   );
 }
