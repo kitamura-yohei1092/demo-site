@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Poppins, DM_Sans } from "next/font/google";
+import Script from "next/script";
 import { SITE_URL, SITE_NAME, SITE_DESCRIPTION } from "@/lib/site-config";
 import "./globals.css";
 
@@ -63,7 +64,17 @@ export default function RootLayout({
       lang="en"
       className={`${poppins.variable} ${dmSans.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        {children}
+        <div id="sagot-widget" />
+        <Script
+          src="https://app.sagot.ph/chat-widget.js"
+          strategy="afterInteractive"
+          data-tenant="verify-inbox-0425"
+          data-key="pk_live_2LLrQ4CNBFgyCucegAYmsItGL90ewyoO"
+          data-color="#e92bc0"
+        />
+      </body>
     </html>
   );
 }
