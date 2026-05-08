@@ -68,7 +68,7 @@ export default function RootLayout({
         <div id="sagot-widget" />
         <script
           async
-          src="https://app.sagot.ph/chat-widget.js"
+          src="https://sagot-web.vercel.app/chat-widget.js"
           data-tenant="verify-inbox-0425"
           data-key="pk_live_2LLrQ4CNBFgyCucegAYmsItGL90ewyoO"
           data-color="#e92bc0"
