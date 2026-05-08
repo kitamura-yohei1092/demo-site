@@ -65,7 +65,6 @@ export default function RootLayout({
     >
       <body className="min-h-full flex flex-col">
         {children}
-        <div id="sagot-widget" />
         <script
           async
           src="https://sagot-web.vercel.app/chat-widget.js"
